@@ -1,4 +1,4 @@
-# Discord-Telegram-Bridge-bot
+# Telegram-Bots
 
 > This project is part of Javascript Module with the aim of building an advanced a Telegram Bot that takes new tweets from a Twitter Channel and post it to the Telegram.
 
