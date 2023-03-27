@@ -26,7 +26,7 @@
     <a href="#Show-your-support">Show your support</a> &#10023;
     <a href="#License">License</a> &#10023;
     <a href="#Acknowledgments">Acknowledgments</a> &#10023;
-    <a href="https://github.com/RailonA/Discord-Telegram-Bridge-bot/issues">Report Bug</a>&#10023;
+    <a href="https://github.com/RailonA/Telegram-Bots/issues>Report Bug</a>&#10023;
 
 </p>
 
