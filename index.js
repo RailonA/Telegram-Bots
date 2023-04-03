@@ -1,3 +1,5 @@
+require('dotenv').config()
+
 const fs = require("fs");
 const Telegram = require('node-telegram-bot-api');
 // const cronJob = require("cron").CronJob;
@@ -5,16 +7,13 @@ const schedule = require('node-schedule');
 const rwClient = require("./scripts/twitter_API.js");
 const { Console } = require("console");
 
-const tokens = JSON.parse(fs.readFileSync("./tokens/telegram_token.json", "utf8"));
+// const tokens = JSON.parse(fs.readFileSync("./tokens/telegram_token.json", "utf8"));
 // Create a TelegramBot that uses 'polling' to fetch new updates
-const FxNewsBot = new Telegram(tokens.fxNewsBot, { polling: true });
-const CryptoNewsBot = new Telegram(tokens.cryptoNewsBot, { polling: true });
+const FxNewsBot = new Telegram(process.env.FX_NEWS_BOT, { polling: true });
+const CryptoNewsBot = new Telegram(process.env.CRYPTO_NEWS_BOT, { polling: true });
 
 const startDate = new Date();
-// CryptoNewsBot.getChat('-100+9uCt5T3o5-E2N2Vh')
 
-// console.log(CryptoNewsBot.getChat('-100+9uCt5T3o5-E2N2Vh'))
-// -100+9uCt5T3o5-E2N2Vh
 try {
   FxNewsBot.on('message', async (message) => {
 
@@ -56,45 +55,45 @@ try {
     }
   })
 
-  CryptoNewsBot.on('message', async (message) => {
+  // CryptoNewsBot.on('message', async (message) => {
 
-    if (new Date(message.date * 1000) > startDate && message.text) {
-      console.log("Got a telegram message: " + message.text);
+  //   if (new Date(message.date * 1000) > startDate && message.text) {
+  //     console.log("Got a telegram message: " + message.text);
 
-      //populate object with Telegram information
-      let plateformObject = {
-        platform: "telegram",
-        userID: message.from.id,
-        message: message,
-        chatID: message.chat.id
-      }
+  //     //populate object with Telegram information
+  //     let plateformObject = {
+  //       platform: "telegram",
+  //       userID: message.from.id,
+  //       message: message,
+  //       chatID: message.chat.id
+  //     }
 
-      let   cryptoCurrenTweet = "";
+  //     let   cryptoCurrenTweet = "";
 
-      // Checking Twitter page 12 am for new tweet
-      let job = schedule.scheduleJob(' 0 * * * * *', async function () {
-        const cryptoLiveNews= await rwClient.v1.userTimelineByUsername("@itscrypto_news");
-        let tweetList = cryptoLiveNews.tweets;
-        let cryptoNewsTweet = tweetList[0].full_text
+  //     // Checking Twitter page 12 am for new tweet
+  //     let job = schedule.scheduleJob(' 0 * * * * *', async function () {
+  //       const cryptoLiveNews= await rwClient.v1.userTimelineByUsername("@itscrypto_news");
+  //       let tweetList = cryptoLiveNews.tweets;
+  //       let cryptoNewsTweet = tweetList[0].full_text
         
-        if (cryptoNewsTweet !== cryptoCurrenTweet) {
-          CryptoNewsBot.sendMessage(plateformObject.chatID, '@itscrypto_news Tweeted:');
-          CryptoNewsBot.sendMessage(plateformObject.chatID, cryptoNewsTweet)
-          cryptoCurrenTweet = cryptoNewsTweet;
-          return cryptoCurrenTweet
-        } else {
-          console.log("DONT PRINT ")
-        }
-      })
+  //       if (cryptoNewsTweet !== cryptoCurrenTweet) {
+  //         CryptoNewsBot.sendMessage(plateformObject.chatID, '@itscrypto_news Tweeted:');
+  //         CryptoNewsBot.sendMessage(plateformObject.chatID, cryptoNewsTweet)
+  //         cryptoCurrenTweet = cryptoNewsTweet;
+  //         return cryptoCurrenTweet
+  //       } else {
+  //         console.log("DONT PRINT ")
+  //       }
+  //     })
 
-      job.start
+  //     job.start
 
 
-    } else if (message.text) {
-      console.log("Skipping telegram message: " + message.text);
-      return null;
-    }
-  })
+  //   } else if (message.text) {
+  //     console.log("Skipping telegram message: " + message.text);
+  //     return null;
+  //   }
+  // })
 
 } catch (e) {
   Rollbar.error("Something went wrong", e);
