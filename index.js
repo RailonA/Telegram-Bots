@@ -1,16 +1,14 @@
 require('dotenv').config()
 
-const fs = require("fs");
 const Telegram = require('node-telegram-bot-api');
 // const cronJob = require("cron").CronJob;
 const schedule = require('node-schedule');
 const rwClient = require("./scripts/twitter_API.js");
-const { Console } = require("console");
 
 // const tokens = JSON.parse(fs.readFileSync("./tokens/telegram_token.json", "utf8"));
 // Create a TelegramBot that uses 'polling' to fetch new updates
 const FxNewsBot = new Telegram(process.env.FX_NEWS_BOT, { polling: true });
-const CryptoNewsBot = new Telegram(process.env.CRYPTO_NEWS_BOT, { polling: true });
+// const CryptoNewsBot = new Telegram(process.env.CRYPTO_NEWS_BOT, { polling: true });
 
 const startDate = new Date();
 
