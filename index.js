@@ -7,7 +7,7 @@ const rwClient = require("./scripts/twitter_API.js");
 
 // const tokens = JSON.parse(fs.readFileSync("./tokens/telegram_token.json", "utf8"));
 // Create a TelegramBot that uses 'polling' to fetch new updates
-const FxNewsBot = new Telegram(process.env.FX_NEWS_BOT, { polling: true });
+const FxNewsBot = new Telegram('process.env.FX_NEWS_BOT', { polling: true });
 // const CryptoNewsBot = new Telegram(process.env.CRYPTO_NEWS_BOT, { polling: true });
 
 const startDate = new Date();
