@@ -28,7 +28,7 @@ try {
       let   fxCurrenTweet = "";
 
       // Checking Twitter page 12 am for new tweet
-      let job = schedule.scheduleJob(' 0 * /4  * * *', async function () {
+      let job = schedule.scheduleJob(' 0 0 */4  * * *', async function () {
         const forexLiveNews= await rwClient.v1.userTimelineByUsername("@ForexLive");
         let tweetList = forexLiveNews.tweets;
         let fxNewsTweet = tweetList[0].full_text
@@ -68,7 +68,7 @@ try {
       let   cryptoCurrenTweet = "";
 
       // Checking Twitter page 12 am for new tweet
-      let job = schedule.scheduleJob(' 0 * /4  * * *', async function () {
+      let job = schedule.scheduleJob(' 0 0 */4  * * *', async function () {
         const cryptoLiveNews= await rwClient.v1.userTimelineByUsername("@itscrypto_news");
         let tweetList = cryptoLiveNews.tweets;
         let cryptoNewsTweet = tweetList[0].full_text
